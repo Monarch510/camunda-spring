@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_05juc8h" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="Process_huiqian" name="会签" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0ynunkp</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0ynunkp" sourceRef="StartEvent_1" targetRef="huiqianBefore" />
+    <bpmn:userTask id="huiqian" name="会签" camunda:assignee="${shijiUser}">
+      <bpmn:incoming>Flow_0ojyvo8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fpbadg</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${shijipeihechulibumenList}" camunda:elementVariable="shijiUser" />
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0fpbadg" sourceRef="huiqian" targetRef="huiqianAfter" />
+    <bpmn:userTask id="huiqianAfter" name="会签后" camunda:assignee="wwj">
+      <bpmn:incoming>Flow_0fpbadg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vq5nqi</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="Event_10poda5">
+      <bpmn:incoming>Flow_0vq5nqi</bpmn:incoming>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_0vq5nqi" sourceRef="huiqianAfter" targetRef="Event_10poda5" />
+    <bpmn:sequenceFlow id="Flow_0ojyvo8" sourceRef="huiqianBefore" targetRef="huiqian" />
+    <bpmn:userTask id="huiqianBefore" name="会签前" camunda:assignee="wwj">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="shijipeihechulibumenList">
+            <camunda:list>
+              <camunda:value>wwj1</camunda:value>
+              <camunda:value>wwj2</camunda:value>
+            </camunda:list>
+          </camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ynunkp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ojyvo8</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_huiqian">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_10poda5_di" bpmnElement="Event_10poda5">
+        <dc:Bounds x="772" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15ieij5_di" bpmnElement="huiqianAfter">
+        <dc:Bounds x="600" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1pdw7cw_di" bpmnElement="huiqian">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0p4khxt_di" bpmnElement="huiqianBefore">
+        <dc:Bounds x="260" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ynunkp_di" bpmnElement="Flow_0ynunkp">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="260" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vq5nqi_di" bpmnElement="Flow_0vq5nqi">
+        <di:waypoint x="700" y="117" />
+        <di:waypoint x="772" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fpbadg_di" bpmnElement="Flow_0fpbadg">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="600" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ojyvo8_di" bpmnElement="Flow_0ojyvo8">
+        <di:waypoint x="360" y="117" />
+        <di:waypoint x="440" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

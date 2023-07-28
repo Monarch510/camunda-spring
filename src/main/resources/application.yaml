@@ -1,0 +1,31 @@
+spring:
+#    rest请求修改路径engine-rest为camunda
+#    jersey:
+#        application-path: camunda
+    application:
+        name: camunda
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/process_engine?characterEncoding=UTF-8&useUnicode=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+
+camunda:
+    bpm:
+        admin-user:
+            id: demo
+            password: demo
+        filter:
+            create: All tasks
+        database:
+            type: mysql
+            schema-update: true
+        generic-properties.properties:
+            javaSerializationFormatEnabled: true
+#            禁用遥测报告
+            telemetry-reporter-activate: false
+
+mybatis-plus:
+    configuration:
+        map-underscore-to-camel-case: true
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
